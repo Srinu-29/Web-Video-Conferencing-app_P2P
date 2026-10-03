@@ -6,6 +6,7 @@ import MicOffIcon from "@mui/icons-material/MicOff";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import VideocamOffIcon from "@mui/icons-material/VideocamOff";
 import { useParams } from "react-router-dom";
+import ChatBox from "./ChatBox";
 
 const backendURL = `http://${window.location.hostname}:5000`;
 const socket = io(backendURL);
@@ -19,7 +20,17 @@ function Room() {
   // THE DICTIONARY OF ENGINES
   const peersRef = useRef({});
 
+  // MY NAME & ID
   const [me, setMe] = useState("");
+  const [myUserName, setMyUserName] = useState(() => {
+    return sessionStorage.getItem("userName") || window.prompt("Enter your name:") || "Guest";
+  });
+
+  // Save it to memory so they aren't asked again if they refresh!
+  useEffect(() => {
+    sessionStorage.setItem("userName", myUserName);
+  }, [myUserName]);
+
   const [hasVideo, setHasVideo] = useState(false);
   const [hasMic, setHasMic] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -29,8 +40,12 @@ function Room() {
   const [remoteStreams, setRemoteStreams] = useState([]);
 
   // UI STATE DICTIONARIES
+  const [remoteUserNames, setRemoteUserNames] = useState({});
   const [mutedUsers, setMutedUsers] = useState({});
   const [videoOffUsers, setVideoOffUsers] = useState({});
+
+  // CHAT STATE
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     // ATTEMPT 1: Try to get both Camera and Mic
@@ -69,11 +84,11 @@ function Room() {
       // We are already fully connected to the backend. Join the room immediately!
       if (socket.connected) {
         setMe(socket.id);
-        socket.emit("join-room", roomID, socket.id);
+        socket.emit("join-room", roomID, socket.id, myUserName);
       } else {
         socket.on("connect", () => {
           setMe(socket.id);
-          socket.emit("join-room", roomID, socket.id);
+          socket.emit("join-room", roomID, socket.id, myUserName);
         });
       }
     };
@@ -91,8 +106,16 @@ function Room() {
       });
     };
 
-    socket.on("user-connected", async (newUserId) => {
-      console.log("Someone arrived! Initiating call...", newUserId);
+    socket.on("all-usernames", (dictionary) => {
+      setRemoteUserNames(dictionary);
+    });
+
+    socket.on("user-connected", async (newUserId, newUserName) => {
+      console.log(`Someone arrived! ${newUserName} (${newUserId}) Initiating call...`);
+      
+      // Save their name!
+      setRemoteUserNames((prev) => ({ ...prev, [newUserId]: newUserName }));
+      
       sendMyStateTo(newUserId); // Tell ONLY the new person our current state
       await createOffer(newUserId);
     });
@@ -139,6 +162,20 @@ function Room() {
       setVideoOffUsers((prev) => ({ ...prev, [userId]: isVideoOff }));
     });
 
+    // When someone else changes their name, update our dictionary!
+    socket.on("user-name-changed", (userId, newName) => {
+      setRemoteUserNames((prev) => ({ ...prev, [userId]: newName }));
+    });
+
+    // --- CHAT LISTENERS ---
+    socket.on("chat-history", (historyArray) => {
+      setMessages(historyArray);
+    });
+
+    socket.on("receive-chat", (messageObj) => {
+      setMessages((prev) => [...prev, messageObj]);
+    });
+
     // CLEANUP: runs when leaving the page / remounting, so listeners never stack up
     return () => {
       [
@@ -150,6 +187,10 @@ function Room() {
         "user-disconnected",
         "user-toggled-mute",
         "user-toggled-video",
+        "user-name-changed",
+        "chat-history",
+        "receive-chat",
+        "all-usernames",
       ].forEach((event) => socket.off(event));
 
       Object.values(peersRef.current).forEach((peer) => peer.close());
@@ -192,6 +233,20 @@ function Room() {
         setIsVideoOff(isNowVideoOff);
         socket.emit("toggle-video", roomID, isNowVideoOff);
       }
+    }
+  };
+
+  const handleSendMessage = (text) => {
+    socket.emit("send-chat", roomID, text, myUserName);
+    setMessages((prev) => [...prev, { senderId: socket.id, senderName: myUserName, text: text }]);
+  };
+
+  const editMyName = () => {
+    const newName = window.prompt("Enter your new name:", myUserName);
+    if (newName && newName.trim() !== "") {
+      const trimmedName = newName.trim();
+      setMyUserName(trimmedName); // Update my UI
+      socket.emit("change-name", roomID, trimmedName); // Tell the server
     }
   };
 
@@ -268,7 +323,10 @@ function Room() {
         Meeting Room: {roomID}
       </Typography>
       <Typography variant="subtitle1" color="textSecondary" gutterBottom>
-        My ID: {me || "Connecting..."}
+        My ID: {me || "Connecting..."} | Name: <b>{myUserName}</b>
+        <Button size="small" variant="outlined" onClick={editMyName} sx={{ ml: 2 }}>
+          Edit Name
+        </Button>
       </Typography>
 
       <Box
@@ -377,7 +435,10 @@ function Room() {
               playsInline
               autoPlay
               ref={(el) => {
-                if (el) el.srcObject = user.stream;
+                // Prevent the video from blinking! Only reassign if the stream actually changed.
+                if (el && el.srcObject !== user.stream) {
+                  el.srcObject = user.stream;
+                }
               }}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
@@ -401,6 +462,21 @@ function Room() {
                 <Typography color="white">Camera Off</Typography>
               </Box>
             )}
+
+            <Box
+              sx={{
+                position: "absolute",
+                bottom: 10,
+                left: 10,
+                backgroundColor: "rgba(0, 0, 0, 0.6)",
+                padding: "4px 10px",
+                borderRadius: "4px",
+              }}
+            >
+              <Typography variant="body2" color="white" fontWeight="bold">
+                {remoteUserNames[user.id] || "Guest"}
+              </Typography>
+            </Box>
 
             {mutedUsers[user.id] && (
               <Box
@@ -447,6 +523,9 @@ function Room() {
           </Button>
         )}
       </Box>
+
+      {/* ================= CHAT UI ================= */}
+      <ChatBox messages={messages} me={me} onSendMessage={handleSendMessage} />
     </Container>
   );
 }
