@@ -1,0 +1,515 @@
+/* MeetFlow Pre-Meeting Landing Screen */
+.meetflow-home-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #070a13;
+  color: #ffffff;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  padding: 40px 20px 30px;
+}
+
+/* Background Glowing Ambiance */
+.meetflow-ambient-glow-top {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(59, 130, 246, 0.15) 45%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.meetflow-ambient-glow-bottom-left {
+  position: absolute;
+  bottom: -100px;
+  left: -150px;
+  width: 550px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.35) 0%, rgba(14, 165, 233, 0.15) 50%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.meetflow-ambient-glow-bottom-right {
+  position: absolute;
+  bottom: -100px;
+  right: -150px;
+  width: 550px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(147, 51, 234, 0.35) 0%, rgba(79, 70, 229, 0.15) 50%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Background Wave Curves */
+.meetflow-bg-waves {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 280px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.7;
+}
+
+/* Center Content & Glass Card */
+.meetflow-center-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 480px;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+/* Logo Badge */
+.meetflow-logo-badge {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 30px rgba(99, 102, 241, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  margin-bottom: 20px;
+  color: #ffffff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.meetflow-logo-badge:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 16px 36px rgba(99, 102, 241, 0.6);
+}
+
+/* Heading & Subtitle */
+.meetflow-title {
+  font-size: 2.75rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.1 !important;
+  margin-bottom: 12px !important;
+  text-align: center;
+}
+
+.meetflow-title-meet {
+  color: #ffffff;
+}
+
+.meetflow-title-flow {
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.meetflow-subtitle {
+  font-size: 0.98rem !important;
+  color: #94a3b8 !important;
+  text-align: center;
+  max-width: 420px;
+  line-height: 1.5 !important;
+  margin-bottom: 34px !important;
+}
+
+/* Glass Card Form */
+.meetflow-glass-card {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.65) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(99, 102, 241, 0.22) !important;
+  border-radius: 20px !important;
+  padding: 28px 24px !important;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  box-sizing: border-box;
+}
+
+.card-field-label {
+  font-size: 0.88rem !important;
+  font-weight: 600 !important;
+  color: #e2e8f0 !important;
+  margin-bottom: 8px !important;
+  display: block;
+}
+
+/* Custom Text Field */
+.meetflow-name-input .MuiOutlinedInput-root {
+  background-color: rgba(2, 6, 23, 0.65);
+  border-radius: 12px;
+  color: #ffffff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.meetflow-name-input .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.meetflow-name-input .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(99, 102, 241, 0.5);
+}
+
+.meetflow-name-input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+.meetflow-name-input .MuiInputBase-input {
+  padding: 13px 14px 13px 6px;
+  font-size: 0.95rem;
+}
+
+.meetflow-name-input .MuiInputBase-input::placeholder {
+  color: #64748b;
+  opacity: 1;
+}
+
+/* Create Meeting Button */
+.meetflow-create-btn {
+  width: 100%;
+  height: 52px;
+  margin-top: 18px !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 0.92rem !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.45) !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.meetflow-create-btn:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(99, 102, 241, 0.6) !important;
+}
+
+.meetflow-create-btn:active {
+  transform: translateY(0);
+}
+
+/* ======================================================== */
+/* DECORATIVE SIDE ILLUSTRATIONS                             */
+/* ======================================================== */
+.meetflow-decorative-left {
+  position: absolute;
+  top: 48%;
+  left: 3%;
+  transform: translateY(-50%) perspective(1200px) rotateY(16deg) rotateX(4deg) rotateZ(-3deg);
+  width: 320px;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.75;
+  transition: opacity 0.3s ease;
+}
+
+.decorative-window-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.window-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.dot-red { background-color: #ef4444; }
+.dot-yellow { background-color: #f59e0b; }
+.dot-green { background-color: #10b981; }
+
+.decorative-video-body {
+  display: flex;
+  gap: 10px;
+}
+
+.decorative-sidebar-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  color: #94a3b8;
+}
+
+.decorative-grid-2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  flex: 1;
+}
+
+.decorative-participant-tile {
+  background: rgba(30, 41, 59, 0.7);
+  border-radius: 10px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid transparent;
+  position: relative;
+}
+
+.decorative-participant-tile.active-speaker {
+  border-color: #10b981;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+.avatar-silhouette {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #ffffff;
+}
+
+.avatar-user-1 { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+.avatar-user-2 { background: linear-gradient(135deg, #a855f7, #7e22ce); }
+.avatar-user-3 { background: linear-gradient(135deg, #10b981, #047857); }
+.avatar-user-4 { background: linear-gradient(135deg, #f59e0b, #d97706); }
+
+/* Right Decorative Chat Illustration */
+.meetflow-decorative-right {
+  position: absolute;
+  top: 48%;
+  right: 3%;
+  transform: translateY(-50%) perspective(1200px) rotateY(-16deg) rotateX(4deg) rotateZ(3deg);
+  width: 290px;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.75;
+}
+
+.decorative-chat-bubble-floating {
+  position: absolute;
+  top: -36px;
+  left: 20px;
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.chat-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #94a3b8;
+}
+
+.decorative-chat-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.decorative-chat-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.decorative-chat-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.chat-line-long {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  width: 90%;
+}
+
+.chat-line-short {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  width: 60%;
+}
+
+.decorative-chat-input-preview {
+  margin-top: 14px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.chat-send-icon-preview {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+/* ======================================================== */
+/* BOTTOM FEATURES ROW                                      */
+/* ======================================================== */
+.meetflow-features-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.meetflow-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.feature-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.icon-circle-blue {
+  background: rgba(37, 99, 235, 0.2);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.icon-circle-purple {
+  background: rgba(147, 51, 234, 0.2);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.icon-circle-teal {
+  background: rgba(20, 184, 166, 0.2);
+  color: #2dd4bf;
+  border: 1px solid rgba(45, 212, 191, 0.3);
+}
+
+.feature-text-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-title {
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  color: #f1f5f9 !important;
+  line-height: 1.2 !important;
+}
+
+.feature-desc {
+  font-size: 0.78rem !important;
+  color: #94a3b8 !important;
+}
+
+/* ======================================================== */
+/* RESPONSIVE DESIGN BREAKPOINTS                            */
+/* ======================================================== */
+@media (max-width: 1280px) {
+  .meetflow-decorative-left,
+  .meetflow-decorative-right {
+    opacity: 0.45;
+    width: 250px;
+  }
+}
+
+@media (max-width: 1120px) {
+  .meetflow-decorative-left,
+  .meetflow-decorative-right {
+    display: none;
+  }
+  .meetflow-features-row {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .meetflow-home-container {
+    padding: 30px 16px 20px;
+  }
+  .meetflow-title {
+    font-size: 2.2rem !important;
+  }
+  .meetflow-subtitle {
+    font-size: 0.9rem !important;
+    margin-bottom: 24px !important;
+  }
+  .meetflow-glass-card {
+    padding: 22px 18px !important;
+  }
+  .meetflow-features-row {
+    gap: 16px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .meetflow-title {
+    font-size: 1.85rem !important;
+  }
+  .meetflow-features-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    width: 100%;
+    max-width: 280px;
+    margin: 24px auto 0;
+  }
+}

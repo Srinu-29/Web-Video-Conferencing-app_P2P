@@ -1,0 +1,143 @@
+.meeting-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 72px;
+  padding: 8px 24px;
+  background-color: var(--controls-bg, #161922);
+  border-top: 1px solid var(--controls-border, rgba(255, 255, 255, 0.08));
+  box-sizing: border-box;
+  z-index: 10;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.meeting-controls-bar.light-theme {
+  --controls-bg: #ffffff;
+  --controls-border: rgba(0, 0, 0, 0.08);
+  --ctrl-btn-color: #374151;
+  --ctrl-btn-hover: #f3f4f6;
+  --ctrl-active-color: #2563eb;
+}
+
+.meeting-controls-bar:not(.light-theme) {
+  --ctrl-btn-color: #d1d5db;
+  --ctrl-btn-hover: rgba(255, 255, 255, 0.08);
+  --ctrl-active-color: #3b82f6;
+}
+
+.controls-inner-dock {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+.control-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.control-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50% !important;
+  color: var(--ctrl-btn-color, #d1d5db) !important;
+  background-color: transparent !important;
+  transition: all 0.15s ease !important;
+}
+
+.control-btn:hover {
+  background-color: var(--ctrl-btn-hover, rgba(255, 255, 255, 0.08)) !important;
+}
+
+.control-btn.is-active {
+  background-color: rgba(37, 99, 235, 0.15) !important;
+  color: var(--ctrl-active-color, #3b82f6) !important;
+}
+
+.control-btn.is-danger-active {
+  background-color: rgba(239, 68, 68, 0.18) !important;
+  color: #ef4444 !important;
+}
+
+.control-label {
+  font-size: 0.73rem;
+  font-weight: 500;
+  color: var(--ctrl-btn-color, #9ca3af);
+  white-space: nowrap;
+}
+
+/* Leave Button */
+.leave-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+  border-radius: 24px !important;
+  padding: 8px 20px !important;
+  text-transform: none !important;
+  font-weight: 600 !important;
+  font-size: 0.88rem !important;
+  margin-left: 8px;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35);
+  transition:
+    background-color 0.15s ease,
+    transform 0.1s ease !important;
+}
+
+.leave-btn:hover {
+  background-color: #b91c1c !important;
+  transform: translateY(-1px);
+}
+
+/* Reactions Bar Popover */
+.reactions-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background-color: #1e222d;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.reaction-emoji-btn {
+  font-size: 1.4rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: transform 0.15s ease;
+}
+
+.reaction-emoji-btn:hover {
+  transform: scale(1.25);
+}
+
+@media (max-width: 768px) {
+  .meeting-controls-bar {
+    height: 64px;
+    padding: 6px 10px;
+  }
+  .controls-inner-dock {
+    gap: 8px;
+  }
+  .control-btn {
+    width: 38px;
+    height: 38px;
+  }
+  .control-label {
+    display: none;
+  }
+  .leave-btn {
+    padding: 6px 14px !important;
+    font-size: 0.8rem !important;
+  }
+}

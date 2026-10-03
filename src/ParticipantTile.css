@@ -1,0 +1,211 @@
+.participant-tile {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #0b0f19;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+}
+
+/* Active Spotlight Card in Filmstrip */
+.participant-tile.is-active-spotlight {
+  border: 2.5px solid #3b82f6 !important;
+  box-shadow: 0 0 14px rgba(59, 130, 246, 0.45);
+}
+
+.participant-tile:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Actual Video Display */
+.tile-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+.tile-video.mirrored {
+  transform: scaleX(-1);
+}
+
+.tile-video.hidden {
+  display: none;
+}
+
+/* Fallback when camera is off */
+.tile-camera-off {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: radial-gradient(circle at center, #1e2638 0%, #0d121d 100%);
+  color: #9ca3af;
+  z-index: 1;
+}
+
+/* Centered Avatar Display (for participant list & camera-off) */
+.tile-avatar-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, #232936 0%, #161922 100%);
+}
+
+.tile-avatar-circle {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.participant-tile:hover .tile-avatar-circle {
+  transform: scale(1.05);
+}
+
+/* Spotlight view large avatar */
+.participant-tile.is-spotlight .tile-avatar-circle {
+  width: 130px;
+  height: 130px;
+  font-size: 3.6rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Mini view (filmstrip / sidebar list) */
+.participant-tile.mini .tile-avatar-circle {
+  width: 44px;
+  height: 44px;
+  font-size: 1.15rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Top left signal badge */
+.tile-signal-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 6px;
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  color: #10b981;
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+  z-index: 2;
+}
+
+/* Top right options button */
+.tile-options-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px !important;
+  height: 32px !important;
+  background: rgba(15, 23, 42, 0.75) !important;
+  color: #ffffff !important;
+  border-radius: 8px !important;
+  backdrop-filter: blur(8px);
+  z-index: 2;
+  transition: all 0.15s ease;
+}
+
+.tile-options-btn:hover {
+  background: rgba(30, 41, 59, 0.95) !important;
+}
+
+/* Bottom left name tag */
+.tile-name-pill {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.8);
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  backdrop-filter: blur(8px);
+  z-index: 2;
+  max-width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.tile-active-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 6px #10b981;
+  flex-shrink: 0;
+}
+
+/* Bottom right status indicators group on main stage */
+.tile-status-badges-group {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+}
+
+.tile-status-pill {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.8);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* Mini mode for filmstrip */
+.participant-tile.mini {
+  border-radius: 14px;
+  background-color: #101726;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.participant-tile.mini .tile-name-pill {
+  padding: 4px 10px;
+  font-size: 0.76rem;
+  bottom: 8px;
+  left: 8px;
+  gap: 5px;
+}
