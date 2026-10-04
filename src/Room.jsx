@@ -16,7 +16,8 @@ import MeetingChat from "./MeetingChat";
 import MeetingControls from "./MeetingControls";
 import "./Room.css";
 
-const backendURL = `http://${window.location.hostname}:5000`;
+const backendURL =
+  import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 const socket = io(backendURL);
 
 const AVATAR_GRADIENTS = [
