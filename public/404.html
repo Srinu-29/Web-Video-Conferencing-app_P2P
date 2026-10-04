@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>MeetFlow</title>
+    <script>
+      // Single Page Apps for GitHub Pages
+      // Redirects non-hash routes to hash-based routes for client-side routing
+      (function () {
+        var pathSegmentsToKeep = 1; // 1 segment for repository subpath: /<repo-name>/
+        var l = window.location;
+        var pathSegments = l.pathname.split("/").filter(Boolean);
+        var repoName = pathSegments[0] || "";
+        var remainingPath = pathSegments.slice(pathSegmentsToKeep).join("/");
+        var targetUrl =
+          l.protocol +
+          "//" +
+          l.host +
+          (repoName ? "/" + repoName : "") +
+          "/#/" +
+          remainingPath +
+          (l.search ? l.search : "") +
+          l.hash;
+        l.replace(targetUrl);
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to MeetFlow...</p>
+  </body>
+</html>

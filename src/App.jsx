@@ -1,24 +1,22 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './Home';
 import Room from './Room';
 
 function App() {
   return (
-    // BrowserRouter acts as the master wrapper that watches the URL bar
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
-        
-        {/* If the URL is exactly "localhost:5173/", display the Home screen */}
+        {/* Home screen */}
         <Route path="/" element={<Home />} />
-        
-        {/* If the URL is "localhost:5173/room/ANYTHING", display the Room screen.
-            The ":roomID" part tells React to capture whatever random string is there 
-            and save it as a variable named 'roomID' */}
+
+        {/* Room screen */}
         <Route path="/room/:roomID" element={<Room />} />
-        
+
+        {/* Catch-all route to prevent blank screens on unknown paths */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

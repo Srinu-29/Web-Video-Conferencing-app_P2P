@@ -16,8 +16,22 @@ import MeetingChat from "./MeetingChat";
 import MeetingControls from "./MeetingControls";
 import "./Room.css";
 
-const backendURL = import.meta.env.VITE_BACKEND_URL;
-const socket = io(backendURL);
+const backendURL =
+  import.meta.env.VITE_BACKEND_URL ||
+  import.meta.env.VITE_SOCKET_URL ||
+  (typeof window !== "undefined" &&
+  (window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1")
+    ? "http://localhost:5000"
+    : "https://web-video-conference-backend.onrender.com");
+
+const socket = io(backendURL, {
+  transports: ["websocket", "polling"],
+});
+
+socket.on("connect_error", (err) => {
+  console.warn("Socket connection error:", err?.message || err);
+});
 
 const AVATAR_GRADIENTS = [
   "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)",
