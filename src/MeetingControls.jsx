@@ -88,7 +88,6 @@ function MeetingControls({
               {isMuted ? <MicOffIcon /> : <MicIcon />}
             </IconButton>
           </Tooltip>
-          <span className="control-label">{isMuted ? "Unmute" : "Mute"}</span>
         </div>
 
         {/* Video Control */}
@@ -101,9 +100,6 @@ function MeetingControls({
               {isVideoOff ? <VideocamOffIcon /> : <VideocamIcon />}
             </IconButton>
           </Tooltip>
-          <span className="control-label">
-            {isVideoOff ? "Start Video" : "Stop Video"}
-          </span>
         </div>
 
         {/* Participants Control */}
@@ -118,7 +114,6 @@ function MeetingControls({
               </Badge>
             </IconButton>
           </Tooltip>
-          <span className="control-label">Participants</span>
         </div>
 
         {/* Chat Control */}
@@ -133,7 +128,6 @@ function MeetingControls({
               </Badge>
             </IconButton>
           </Tooltip>
-          <span className="control-label">Chat</span>
         </div>
 
         {/* Reactions Control */}
@@ -146,7 +140,6 @@ function MeetingControls({
               <SentimentSatisfiedAltIcon />
             </IconButton>
           </Tooltip>
-          <span className="control-label">Reactions</span>
         </div>
 
         {/* Reactions Popover */}
@@ -193,7 +186,6 @@ function MeetingControls({
               <MoreHorizIcon />
             </IconButton>
           </Tooltip>
-          <span className="control-label">More</span>
         </div>
 
         {/* More Options Menu */}

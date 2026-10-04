@@ -2,35 +2,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 72px;
-  padding: 8px 24px;
-  background-color: var(--controls-bg, #161922);
-  border-top: 1px solid var(--controls-border, rgba(255, 255, 255, 0.08));
+  padding: 10px 24px 22px 24px;
+  background-color: transparent;
+  border-top: none;
   box-sizing: border-box;
   z-index: 10;
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .meeting-controls-bar.light-theme {
-  --controls-bg: #ffffff;
-  --controls-border: rgba(0, 0, 0, 0.08);
-  --ctrl-btn-color: #374151;
-  --ctrl-btn-hover: #f3f4f6;
+  --ctrl-btn-color: #334155;
+  --ctrl-btn-bg: #e2e8f0;
+  --ctrl-btn-border: rgba(0, 0, 0, 0.08);
+  --ctrl-btn-hover: #cbd5e1;
   --ctrl-active-color: #2563eb;
 }
 
 .meeting-controls-bar:not(.light-theme) {
-  --ctrl-btn-color: #d1d5db;
-  --ctrl-btn-hover: rgba(255, 255, 255, 0.08);
+  --ctrl-btn-color: #e5e7eb;
+  --ctrl-btn-bg: rgba(255, 255, 255, 0.08);
+  --ctrl-btn-border: rgba(255, 255, 255, 0.06);
+  --ctrl-btn-hover: rgba(255, 255, 255, 0.16);
   --ctrl-active-color: #3b82f6;
 }
 
 .controls-inner-dock {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   position: relative;
 }
 
@@ -45,23 +44,31 @@
   width: 44px;
   height: 44px;
   border-radius: 50% !important;
-  color: var(--ctrl-btn-color, #d1d5db) !important;
-  background-color: transparent !important;
+  color: var(--ctrl-btn-color, #e5e7eb) !important;
+  background-color: var(--ctrl-btn-bg, rgba(255, 255, 255, 0.08)) !important;
+  border: 1px solid var(--ctrl-btn-border, rgba(255, 255, 255, 0.06)) !important;
   transition: all 0.15s ease !important;
 }
 
 .control-btn:hover {
-  background-color: var(--ctrl-btn-hover, rgba(255, 255, 255, 0.08)) !important;
+  background-color: var(--ctrl-btn-hover, rgba(255, 255, 255, 0.16)) !important;
+  transform: translateY(-2px);
 }
 
 .control-btn.is-active {
-  background-color: rgba(37, 99, 235, 0.15) !important;
+  background-color: rgba(37, 99, 235, 0.22) !important;
+  border-color: rgba(37, 99, 235, 0.45) !important;
   color: var(--ctrl-active-color, #3b82f6) !important;
 }
 
 .control-btn.is-danger-active {
-  background-color: rgba(239, 68, 68, 0.18) !important;
+  background-color: rgba(239, 68, 68, 0.2) !important;
+  border-color: rgba(239, 68, 68, 0.35) !important;
   color: #ef4444 !important;
+}
+
+.control-btn.is-danger-active:hover {
+  background-color: rgba(239, 68, 68, 0.28) !important;
 }
 
 .control-label {
