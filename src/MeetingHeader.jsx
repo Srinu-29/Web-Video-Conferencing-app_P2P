@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { IconButton, Tooltip, Badge } from "@mui/material";
-import VideocamIcon from "@mui/icons-material/Videocam";
 import PeopleIcon from "@mui/icons-material/People";
 import GridViewIcon from "@mui/icons-material/GridView";
 import FeaturedVideoIcon from "@mui/icons-material/FeaturedVideo";
@@ -69,9 +68,7 @@ function MeetingHeader({
       className={`meeting-header ${themeMode === "light" ? "light-theme" : ""}`}
     >
       <div className="header-left">
-        <div className="logo-icon-wrap">
-          <VideocamIcon fontSize="small" />
-        </div>
+        <div className="logo-icon-wrap">MF</div>
         <span className="meeting-title">Meeting Room</span>
         <div className="participant-chip">
           <PeopleIcon sx={{ fontSize: 16 }} />

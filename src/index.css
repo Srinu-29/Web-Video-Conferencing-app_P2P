@@ -50,10 +50,13 @@
   }
 }
 
+html,
 body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   background-color: #12141a;
   color: #fff;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -61,11 +64,12 @@ body {
 
 #root {
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
   margin: 0;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 h1,

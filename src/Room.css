@@ -2,14 +2,19 @@
 .meeting-room-container {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
   background-color: var(--room-bg, #12141a);
   color: var(--room-text, #ffffff);
   box-sizing: border-box;
-  position: relative;
+  position: fixed;
+  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   transition:
     background-color 0.25s ease,
     color 0.25s ease;
@@ -147,27 +152,6 @@
   color: #9ca3af;
 }
 
-/* Filmstrip at the bottom of Grid (if > 4 participants) */
-.grid-additional-filmstrip {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  overflow-x: auto;
-  padding: 8px 4px;
-  min-height: 120px;
-  max-height: 140px;
-  border-radius: 12px;
-  background-color: rgba(0, 0, 0, 0.25);
-  box-sizing: border-box;
-}
-
-.grid-filmstrip-item {
-  width: 170px;
-  height: 110px;
-  flex-shrink: 0;
-  cursor: pointer;
-}
-
 /* ======================================================== */
 /* 2. LAYOUT 2: SPOTLIGHT VIEW                              */
 /* ======================================================== */
@@ -179,19 +163,21 @@
   gap: 16px;
   height: 100%;
   box-sizing: border-box;
+  align-items: center;
+  width: 100%;
 }
 
 .spotlight-main-stage {
   flex: 1;
   min-height: 0;
+  width: 100%;
   position: relative;
-  border-radius: 16px;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #0b0f19;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  background-color: transparent;
+  overflow: hidden;
+  padding: 4px 0;
 }
 
 .spotlight-bottom-filmstrip {
@@ -199,7 +185,8 @@
   align-items: center;
   gap: 14px;
   overflow-x: auto;
-  padding: 4px 2px 8px 2px;
+  overflow-y: hidden;
+  padding: 4px 6px 8px 6px;
   height: 125px;
   flex-shrink: 0;
   box-sizing: border-box;
@@ -415,9 +402,13 @@
   flex: 1;
   min-width: 0;
   height: 100%;
-  border-radius: 16px;
-  overflow: hidden;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  overflow: hidden;
+  padding: 4px 0;
 }
 
 /* Floating Reaction Animations */

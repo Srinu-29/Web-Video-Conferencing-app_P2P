@@ -58,16 +58,6 @@
   z-index: 1;
 }
 
-/* Centered Avatar Display (for participant list & camera-off) */
-.tile-avatar-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, #232936 0%, #161922 100%);
-}
-
 .tile-avatar-circle {
   width: 82px;
   height: 82px;
@@ -87,12 +77,33 @@
   transform: scale(1.05);
 }
 
-/* Spotlight view large avatar */
+/* Spotlight view large tile & 16:9 aspect ratio */
+.participant-tile.is-spotlight {
+  width: auto;
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+  background-color: #0b0f19;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  margin: 0 auto;
+}
+
+.participant-tile.is-spotlight .tile-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: #07090e;
+  border-radius: 16px;
+}
+
 .participant-tile.is-spotlight .tile-avatar-circle {
-  width: 130px;
-  height: 130px;
-  font-size: 3.6rem;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  width: 100px;
+  height: 100px;
+  font-size: 2.8rem;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 /* Mini view (filmstrip / sidebar list) */
@@ -118,25 +129,6 @@
   border-radius: 8px;
   backdrop-filter: blur(8px);
   z-index: 2;
-}
-
-/* Top right options button */
-.tile-options-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 32px !important;
-  height: 32px !important;
-  background: rgba(15, 23, 42, 0.75) !important;
-  color: #ffffff !important;
-  border-radius: 8px !important;
-  backdrop-filter: blur(8px);
-  z-index: 2;
-  transition: all 0.15s ease;
-}
-
-.tile-options-btn:hover {
-  background: rgba(30, 41, 59, 0.95) !important;
 }
 
 /* Bottom left name tag */

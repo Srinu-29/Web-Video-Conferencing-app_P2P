@@ -63,12 +63,8 @@ function Room() {
   const pendingCandidatesRef = useRef({});
 
   // MY NAME & ID
-  const [me, setMe] = useState("");
   const [myUserName, setMyUserName] = useState(() => {
-    return (
-      sessionStorage.getItem("userName") ||
-      "Guest"
-    );
+    return sessionStorage.getItem("userName") || "Guest";
   });
   const myUserNameRef = useRef(myUserName);
 
@@ -164,8 +160,12 @@ function Room() {
       });
 
     const handleConnect = () => {
-      setMe(socket.id);
-      socket.emit("join-room", roomID, socket.id, myUserNameRef.current || "Guest");
+      socket.emit(
+        "join-room",
+        roomID,
+        socket.id,
+        myUserNameRef.current || "Guest",
+      );
     };
 
     const joinRoom = () => {
@@ -186,7 +186,10 @@ function Room() {
     };
 
     socket.on("all-usernames", (dictionary) => {
-      setRemoteUserNames(dictionary || {});
+      if (dictionary) {
+        const { [socket.id]: _, ...others } = dictionary;
+        setRemoteUserNames(others);
+      }
     });
 
     socket.on("user-connected", async (newUserId, newUserName) => {
@@ -367,7 +370,9 @@ function Room() {
 
     peer.onconnectionstatechange = () => {
       if (peer.connectionState === "failed") {
-        console.warn(`Connection with ${targetUserId} failed. Restarting ICE...`);
+        console.warn(
+          `Connection with ${targetUserId} failed. Restarting ICE...`,
+        );
         peer.restartIce();
       }
     };
@@ -440,7 +445,9 @@ function Room() {
 
     // Microphone wasn't acquired initially. Try to acquire it now:
     try {
-      const audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const audioStream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+      });
       const newAudioTrack = audioStream.getAudioTracks()[0];
       if (!newAudioTrack) return;
 
@@ -468,7 +475,9 @@ function Room() {
       }
     } catch (err) {
       console.warn("Could not access microphone:", err);
-      alert("Unable to access microphone. Please check your browser permissions.");
+      alert(
+        "Unable to access microphone. Please check your browser permissions.",
+      );
     }
   };
 
@@ -485,7 +494,9 @@ function Room() {
 
     // Camera wasn't acquired initially. Try to acquire it now:
     try {
-      const videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const videoStream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+      });
       const newVideoTrack = videoStream.getVideoTracks()[0];
       if (!newVideoTrack) return;
 
@@ -586,15 +597,42 @@ function Room() {
       isVideoOff,
     });
 
-    // Remote users
-    remoteStreams.forEach((u) => {
+    // Remote users: combine all participants in room roster (remoteUserNames) and active streams
+    const remoteUserIds = new Set([
+      ...Object.keys(remoteUserNames),
+      ...remoteStreams.map((u) => u.id),
+    ]);
+
+    if (socket.id) {
+      remoteUserIds.delete(socket.id);
+    }
+
+    remoteUserIds.forEach((userId) => {
+      const streamObj = remoteStreams.find((u) => u.id === userId);
+
+      const hasVideoTrack = Boolean(
+        streamObj?.stream?.getVideoTracks()?.some((t) => t.enabled),
+      );
+      const isVideoOffEffective =
+        videoOffUsers[userId] !== undefined
+          ? !!videoOffUsers[userId]
+          : !hasVideoTrack;
+
+      const hasAudioTrack = Boolean(
+        streamObj?.stream?.getAudioTracks()?.some((t) => t.enabled),
+      );
+      const isMutedEffective =
+        mutedUsers[userId] !== undefined
+          ? !!mutedUsers[userId]
+          : !hasAudioTrack;
+
       list.push({
-        id: u.id,
-        name: remoteUserNames[u.id] || "Guest",
-        stream: u.stream,
+        id: userId,
+        name: remoteUserNames[userId] || "Guest",
+        stream: streamObj?.stream || null,
         isMe: false,
-        isMuted: !!mutedUsers[u.id],
-        isVideoOff: !!videoOffUsers[u.id],
+        isMuted: isMutedEffective,
+        isVideoOff: isVideoOffEffective,
       });
     });
 
@@ -611,7 +649,7 @@ function Room() {
   ]);
 
   // Actual human participant count
-  const humanParticipantCount = 1 + remoteStreams.length;
+  const humanParticipantCount = allParticipants.length;
 
   // Decide effective spotlight participant:
   // Triggered when: 1. participant manually selected, OR 2. user explicitly chooses spotlight layout
@@ -681,7 +719,8 @@ function Room() {
               <ChevronLeftIcon fontSize="small" />
             </IconButton>
             <span className="grid-page-indicator">
-              Page {gridPage + 1} of {gridTotalPages} ({totalCount} participants)
+              Page {gridPage + 1} of {gridTotalPages} ({totalCount}{" "}
+              participants)
             </span>
             <IconButton
               size="small"
@@ -748,7 +787,7 @@ function Room() {
               )}
             </div>
             <span className="invite-label">
-              {copiedInvite ? "Link Copied!" : "Invite People"}
+              {copiedInvite ? "Link Copied!" : ""}
             </span>
           </div>
         </div>

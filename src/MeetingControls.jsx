@@ -228,10 +228,9 @@ function MeetingControls({
         <Button
           variant="contained"
           className="leave-btn"
-          startIcon={<CallEndIcon />}
           onClick={onLeaveMeeting}
         >
-          Leave
+          <CallEndIcon />
         </Button>
       </div>
     </footer>

@@ -88,13 +88,6 @@ function ParticipantTile({
           <div className="tile-avatar-circle" style={{ background: avatarBg }}>
             {initialLetter}
           </div>
-          {!isMini && (
-            <span
-              style={{ fontSize: "0.85rem", opacity: 0.8, color: "#9ca3af" }}
-            >
-              {isMe ? "Your Camera is Off" : `${name} turned camera off`}
-            </span>
-          )}
         </div>
       )}
 
