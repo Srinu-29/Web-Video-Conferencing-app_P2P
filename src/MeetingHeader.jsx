@@ -72,7 +72,10 @@ function MeetingHeader({
         <span className="meeting-title">Meeting Room</span>
         <div className="participant-chip">
           <PeopleIcon sx={{ fontSize: 16 }} />
-          <span>{participantCount} participants</span>
+          <span>
+            {participantCount}
+            <span className="chip-label-text"> participants</span>
+          </span>
         </div>
       </div>
 
@@ -132,6 +135,7 @@ function MeetingHeader({
         <Tooltip title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"} arrow>
           <IconButton
             size="small"
+            className="header-fullscreen-btn"
             onClick={handleToggleFullscreen}
             sx={{ color: "inherit" }}
           >

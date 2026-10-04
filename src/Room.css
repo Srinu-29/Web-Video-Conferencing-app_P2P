@@ -4,7 +4,9 @@
   flex-direction: column;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   max-height: 100vh;
+  max-height: 100dvh;
   overflow: hidden;
   background-color: var(--room-bg, #12141a);
   color: var(--room-text, #ffffff);
@@ -474,22 +476,71 @@
     flex-direction: column;
   }
   .meeting-stage-area {
-    padding: 8px;
+    padding: 6px;
   }
-  .video-grid-container.grid-count-2,
-  .video-grid-container.grid-count-3,
-  .video-grid-container.grid-count-4,
-  .video-grid-container.grid-count-more {
+  .video-grid-container {
+    gap: 8px;
+  }
+  .video-grid-container.grid-count-1 {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .video-grid-container.grid-count-2 {
     grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    max-width: 100%;
+    max-height: 100%;
+    gap: 8px;
+  }
+  .video-grid-container.grid-count-3,
+  .video-grid-container.grid-count-4 {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    max-width: 100%;
+    max-height: 100%;
+    gap: 8px;
+  }
+  .video-grid-container.grid-count-more {
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
+    overflow-y: auto;
+    gap: 8px;
+  }
+  .spotlight-bottom-filmstrip {
+    height: 88px;
+    padding: 2px 4px;
+    gap: 8px;
+  }
+  .spotlight-filmstrip-item,
+  .invite-people-card {
+    width: 110px;
+    height: 76px;
+    border-radius: 10px;
+  }
+  .invite-people-card {
+    gap: 4px;
+  }
+  .invite-icon-circle {
+    width: 28px;
+    height: 28px;
+  }
+  .invite-card-text {
+    font-size: 0.68rem;
   }
   .participants-sidebar-panel {
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
-    width: 260px;
+    width: min(280px, 85vw);
     z-index: 50;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  }
+  .floating-reaction-container {
+    bottom: 70px;
+    left: 16px;
+  }
+  .floating-reaction-bubble {
+    font-size: 1.8rem;
   }
 }
