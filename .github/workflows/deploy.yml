@@ -39,8 +39,7 @@ jobs:
       - name: Build React app
         run: npm run build
         env:
-          VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL || vars.VITE_SOCKET_URL || 'https://web-video-conference-backend.onrender.com' }}
-          VITE_SOCKET_URL: ${{ vars.VITE_SOCKET_URL || vars.VITE_BACKEND_URL || 'https://web-video-conference-backend.onrender.com' }}
+          VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL || secrets.VITE_BACKEND_URL || vars.VITE_SOCKET_URL || secrets.VITE_SOCKET_URL }}
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
